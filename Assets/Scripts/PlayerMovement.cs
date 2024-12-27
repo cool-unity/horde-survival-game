@@ -43,9 +43,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Run()
     {
-        myRigidbody.velocity = new Vector2(moveInput.x*runSpeed, moveInput.y*runSpeed);
-        if((Mathf.Abs(myRigidbody.velocity.x)>Mathf.Epsilon) ||
-            (Mathf.Abs(myRigidbody.velocity.y)>Mathf.Epsilon)) //Mathf.Epsilon is an infintesimally small number. This is to avoid glitches with the value being really small but not 0.
+        myRigidbody.linearVelocity = new Vector2(moveInput.x*runSpeed, moveInput.y*runSpeed);
+        if((Mathf.Abs(myRigidbody.linearVelocity.x)>Mathf.Epsilon) ||
+            (Mathf.Abs(myRigidbody.linearVelocity.y)>Mathf.Epsilon)) //Mathf.Epsilon is an infintesimally small number. This is to avoid glitches with the value being really small but not 0.
         {
             ChangeAnimationState(PLAYER_RUN);
         }
@@ -55,10 +55,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void FlipSprite(){
-        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x)>Mathf.Epsilon;
+        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.linearVelocity.x)>Mathf.Epsilon;
         if(playerHasHorizontalSpeed)
         {
-            transform.localScale = new Vector2(Mathf.Sign(myRigidbody.velocity.x),transform.localScale.y);
+            transform.localScale = new Vector2(Mathf.Sign(myRigidbody.linearVelocity.x),transform.localScale.y);
         }
     }
 
