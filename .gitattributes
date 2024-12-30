@@ -1,0 +1,30 @@
+# Ensure text files use LF
+* text=auto
+
+# Force binary files to be treated as binary and not normalized
+*.png binary
+*.jpg binary
+*.psd binary
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.fbx binary
+*.unity binary
+*.prefab binary
+*.mat binary
+*.anim binary
+*.controller binary
+*.asset binary
+*.ttf binary
+*.otf binary
+*.dll binary
+*.exe binary
+
+# Prevent normalization of Unity YAML files
+*.unity text eol=lf
+*.prefab text eol=lf
+*.meta text eol=lf
+
+# Ignore other specific Unity project files
+*.cs text eol=lf
+*.shader text eol=lf
