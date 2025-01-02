@@ -1,0 +1,87 @@
+﻿# JetBrains Rider-specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+/out/
+
+# Editor-based HTTP Client requests
+/httpRequests/
+
+# Datasource local storage
+/dataSources/
+dataSources.local.xml
+
+# Workspace and configuration files
+/workspace.xml
+/shelf/
+/modules.xml
+/contentModel.xml
+/projectSettingsUpdater.xml
+
+# User-specific files
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Unity-specific ignores
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# Unity auto-generated settings
+Assets/AssetStoreTools*
+Assets/Plugins/Editor/
+
+# Unity build artifacts
+*.apk
+*.unitypackage
+*.aab
+
+# User-specific settings
+UserSettings/
+
+# Visual Studio Code settings
+.vscode/
+.vscode/*
+
+# Rider IDE user preferences
+.idea/
+*.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node modules (if applicable)
+node_modules/
+
+# Yarn lock file
+yarn.lock
+
+# Logs
+*.log
+*.log.*
+
+# Crashlytics or debugging information
+crashlytics-build.properties
+crashlytics.properties
+
+# Ignore npm and lock files (if using npm)
+package-lock.json
+
+# Ignore JetBrains-based files across IDEs
+**/jetbrains-ide/**
+
+# Backup files
+*.bak
+*.swp
+
+# Ignore JetBrains shared index cache
+.shared-index/

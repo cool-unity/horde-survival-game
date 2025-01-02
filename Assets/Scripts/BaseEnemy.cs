@@ -2,34 +2,25 @@ using UnityEngine;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
-    public Transform player; // Reference to the player's Transform
-    protected Rigidbody2D myRigidbody;
+    [Header("References")]
+    protected MovementComponent movementComponent;
     protected Animator animator;
-    public GameObject experienceTokenPrefab;
+    protected HealthComponent healthComponent;
 
-    [Header("Movement Settings")]
-    [SerializeField] protected float moveSpeed = 5f; // Default movement speed
-    [SerializeField] protected float followRange = 10f; // Range within which the enemy follows
-    [SerializeField] protected bool ignoreFollowRange = true; // Default to true to always follow the player
-    [SerializeField] private float circlingSpeed = 1f; // Speed of circling around the player
-    [SerializeField] private float circlingRadius = 2f; // Radius of circling around the player
-    [SerializeField] private float separationDistance = 1.5f; // Distance to maintain from other enemies
-    [SerializeField] private float separationStrength = 2f; // Strength of separation force
+    [Header("Enemy Settings")]
+    [SerializeField] protected float detectionRange = 10f; // Range to detect the player
+    [SerializeField] protected float attackRange = 2f; // Range to perform an attack
+    [SerializeField] protected GameObject experienceTokenPrefab; // Token to spawn on death
 
-    private bool isFollowing = false; // Tracks whether the enemy is currently following the player
-    private bool hasLoggedWarning = false; // Ensures the player-null warning is logged only once
+    protected Transform player;
+    protected EnemyState currentState = EnemyState.Idle;
 
-    protected enum EnemyState { Idle, Following, Attacking, Dead }
-    protected EnemyState currentState = EnemyState.Idle; // Enemy's current state
+    protected enum EnemyState { Idle, Patrolling, Chasing, Attacking, Dead }
 
-    private HealthComponent healthComponent;
-
-    // New field for spawner reference
-    private EnemySpawner spawner;
-
-    protected virtual void Start()
+    protected virtual void Awake()
     {
-        myRigidbody = GetComponent<Rigidbody2D>();
+        // Cache references to components
+        movementComponent = GetComponent<MovementComponent>();
         animator = GetComponent<Animator>();
         healthComponent = GetComponent<HealthComponent>();
 
@@ -37,199 +28,220 @@ public abstract class BaseEnemy : MonoBehaviour
         {
             healthComponent.Died += OnDeath; // Subscribe to the death event
         }
+    }
 
-        // Log initialization for the enemy
-        Debug.Log($"BaseEnemy initialized for {gameObject.name} with moveSpeed: {moveSpeed}, followRange: {followRange}, ignoreFollowRange: {ignoreFollowRange}");
+    protected virtual void Start()
+    {
+        Debug.Log($"{gameObject.name} initialized.");
     }
 
     protected virtual void Update()
     {
-        if (currentState != EnemyState.Dead)
-        {
-            HandleState();
-        }
+        if (currentState == EnemyState.Dead) return;
+
+        HandleState();
     }
 
+    /// <summary>
+    /// Handles the enemy's state machine.
+    /// </summary>
     protected virtual void HandleState()
     {
         switch (currentState)
         {
             case EnemyState.Idle:
-                Idle();
+                IdleBehavior();
                 break;
-            case EnemyState.Following:
-                FollowPlayerWithCirclingAndSeparation();
+
+            case EnemyState.Patrolling:
+                PatrolBehavior();
                 break;
+
+            case EnemyState.Chasing:
+                ChaseBehavior();
+                break;
+
             case EnemyState.Attacking:
-                Attack();
-                break;
-            case EnemyState.Dead:
-                StopMovement(); // Ensure the enemy stops all activity
+                AttackBehavior();
                 break;
         }
     }
 
-    public virtual void Initialize(EnemySpawner spawnerInstance, Transform playerTransform)
+    /// <summary>
+    /// Transitions the enemy to a new state.
+    /// </summary>
+    /// <param name="newState">The new state to transition to.</param>
+    protected void TransitionToState(EnemyState newState)
     {
-        spawner = spawnerInstance;
-        player = playerTransform;
-        Debug.Log($"{gameObject.name} initialized with spawner and player reference.");
+        if (currentState == newState) return;
+
+        Debug.Log($"{gameObject.name} transitioning from {currentState} to {newState}");
+        currentState = newState;
+
+        OnStateEnter(newState);
     }
 
-    protected virtual void Idle()
+    /// <summary>
+    /// Logic to execute when entering a new state.
+    /// </summary>
+    /// <param name="state">The state being entered.</param>
+    protected virtual void OnStateEnter(EnemyState state)
     {
-        StopMovement(); // Default idle behavior
-    }
-
-    protected void FollowPlayerWithCirclingAndSeparation()
-    {
-        if (player == null)
+        switch (state)
         {
-            if (!hasLoggedWarning)
-            {
-                // Log a warning if the player is null, but only once
-                Debug.LogWarning($"{gameObject.name} has no player assigned! Please assign a player Transform.");
-                hasLoggedWarning = true;
-            }
-            return;
+            case EnemyState.Idle:
+                movementComponent.StopMovement();
+                break;
+
+            case EnemyState.Patrolling:
+                StartPatrol();
+                break;
+
+            case EnemyState.Chasing:
+                StartChase();
+                break;
+
+            case EnemyState.Attacking:
+                StartAttack();
+                break;
         }
+    }
 
-        // Calculate distance to the player
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-        // Check whether the enemy should follow the player
-        if (ignoreFollowRange || distanceToPlayer <= followRange)
+    /// <summary>
+    /// Behavior when in the Idle state.
+    /// </summary>
+    protected virtual void IdleBehavior()
+    {
+        if (PlayerInDetectionRange())
         {
-            if (!isFollowing)
-            {
-                // Log once when the enemy starts following the player
-                Debug.Log($"{gameObject.name} started following the player.");
-                isFollowing = true;
-            }
+            TransitionToState(EnemyState.Chasing);
+        }
+    }
 
-            // Circling and avoidance logic
-            Vector2 circlingVelocity = MoveTowardsPlayerWithCircling(circlingSpeed, circlingRadius);
-            Vector2 avoidanceVelocity = AvoidOtherEnemies(separationDistance, separationStrength);
+    /// <summary>
+    /// Behavior when in the Patrolling state.
+    /// </summary>
+    protected virtual void PatrolBehavior()
+    {
+        // Example: Move between waypoints
+        if (PlayerInDetectionRange())
+        {
+            TransitionToState(EnemyState.Chasing);
+        }
+    }
 
-            // Combine velocities
-            myRigidbody.linearVelocity = circlingVelocity + avoidanceVelocity;
+    /// <summary>
+    /// Behavior when in the Chasing state.
+    /// </summary>
+    protected virtual void ChaseBehavior()
+    {
+        if (PlayerInAttackRange())
+        {
+            TransitionToState(EnemyState.Attacking);
+        }
+        else if (!PlayerInDetectionRange())
+        {
+            TransitionToState(EnemyState.Patrolling);
         }
         else
         {
-            if (isFollowing)
-            {
-                // Log once when the enemy stops following the player
-                Debug.Log($"{gameObject.name} stopped following the player.");
-                isFollowing = false;
-            }
-            SetState(EnemyState.Idle); // Switch to idle state
+            movementComponent.MoveTowards(player.position);
         }
-
-        FlipSprite();
     }
 
-    protected virtual Vector2 MoveTowardsPlayerWithCircling(float circlingSpeed, float circlingRadius)
+    /// <summary>
+    /// Behavior when in the Attacking state.
+    /// </summary>
+    protected virtual void AttackBehavior()
     {
-        // Direction toward the player
-        Vector2 direction = (player.position - transform.position).normalized;
-
-        // Calculate target position for circling
-        Vector2 targetPosition = (Vector2)player.position + (Vector2.Perpendicular(direction) * circlingRadius);
-
-        // Velocity for circling
-        Vector2 circlingVelocity = (targetPosition - (Vector2)transform.position).normalized * moveSpeed;
-
-        // Add rotation effect for circling
-        circlingVelocity += new Vector2(-direction.y, direction.x) * circlingSpeed;
-
-        return circlingVelocity;
-    }
-
-    protected virtual Vector2 AvoidOtherEnemies(float separationDistance, float separationStrength)
-    {
-        Vector2 avoidance = Vector2.zero;
-
-        // Find nearby enemies
-        Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, separationDistance, LayerMask.GetMask("Enemy"));
-
-        foreach (Collider2D enemy in nearbyEnemies)
+        if (!PlayerInAttackRange())
         {
-            if (enemy.gameObject != gameObject) // Ignore self
-            {
-                Vector2 diff = (Vector2)transform.position - (Vector2)enemy.transform.position;
-                avoidance += diff.normalized / diff.magnitude; // Repelling force
-            }
+            TransitionToState(EnemyState.Chasing);
+            return;
         }
 
-        return avoidance * separationStrength;
+        PerformAttack();
     }
 
-    protected virtual void StopMovement()
+    /// <summary>
+    /// Starts patrolling logic.
+    /// </summary>
+    protected virtual void StartPatrol()
     {
-        // Stop moving
-        myRigidbody.linearVelocity = Vector2.zero;
+        // Define patrolling behavior here
     }
 
-    protected virtual void Attack()
+    /// <summary>
+    /// Starts chasing logic.
+    /// </summary>
+    protected virtual void StartChase()
     {
-        Debug.Log($"{gameObject.name} is attacking the player!");
-        // Implement attack logic here
+        if (player != null)
+        {
+            movementComponent.SetTarget(player);
+        }
     }
 
+    /// <summary>
+    /// Starts attacking logic.
+    /// </summary>
+    protected virtual void StartAttack()
+    {
+        movementComponent.StopMovement();
+    }
+
+    /// <summary>
+    /// Performs the attack.
+    /// </summary>
+    protected virtual void PerformAttack()
+    {
+        Debug.Log($"{gameObject.name} attacks the player!");
+        // Implement attack logic here (e.g., apply damage to the player)
+    }
+
+    /// <summary>
+    /// Handles the enemy's death logic.
+    /// </summary>
     protected virtual void OnDeath()
     {
-        Debug.Log($"{gameObject.name} is dead.");
-        SetState(EnemyState.Dead);
+        Debug.Log($"{gameObject.name} has died.");
+        TransitionToState(EnemyState.Dead);
 
-        // Notify the spawner that the enemy is destroyed
-        if (spawner != null)
-        {
-            spawner.OnEnemyDestroyed();
-        }
+        movementComponent.StopMovement();
 
-        // Spawn experience token
         if (experienceTokenPrefab != null)
         {
             Instantiate(experienceTokenPrefab, transform.position, Quaternion.identity);
         }
 
-        Destroy(gameObject, 2f); // Adjust delay as needed depending on animation
+        Destroy(gameObject, 2f); // Adjust delay for death animation or effects
     }
 
-
-    protected void FlipSprite()
+    /// <summary>
+    /// Checks if the player is within the detection range.
+    /// </summary>
+    /// <returns>True if the player is within detection range, false otherwise.</returns>
+    protected bool PlayerInDetectionRange()
     {
-        if (myRigidbody.linearVelocity.x != 0)
-        {
-            transform.localScale = new Vector2(Mathf.Sign(myRigidbody.linearVelocity.x), transform.localScale.y);
-        }
+        if (player == null) return false;
+        return Vector2.Distance(transform.position, player.position) <= detectionRange;
     }
 
-    protected void SetState(EnemyState newState)
+    /// <summary>
+    /// Checks if the player is within attack range.
+    /// </summary>
+    /// <returns>True if the player is within attack range, false otherwise.</returns>
+    protected bool PlayerInAttackRange()
     {
-        if (currentState == newState) return;
-
-        Debug.Log($"{gameObject.name} changed state from {currentState} to {newState}");
-        currentState = newState;
+        if (player == null) return false;
+        return Vector2.Distance(transform.position, player.position) <= attackRange;
     }
 
+    /// <summary>
+    /// Sets the player reference for the enemy.
+    /// </summary>
     public void SetPlayer(Transform playerTransform)
     {
         player = playerTransform;
-        Debug.Log($"{gameObject.name} assigned player: {playerTransform.name}");
-    }
-
-    // New method to set the spawner reference
-    public void SetSpawner(EnemySpawner spawnerInstance)
-    {
-        spawner = spawnerInstance;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, followRange); // Follow range
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, separationDistance); // Separation distance
     }
 }

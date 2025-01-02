@@ -2,67 +2,63 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100; // Maximum health
+    [Header("Health Settings")]
+    [SerializeField] private int maxHealth = 100;
     private int currentHealth;
 
-    private ShieldComponent shieldComponent;
+    public delegate void HealthChangedDelegate(int currentHealth, int maxHealth);
+    public event HealthChangedDelegate HealthChanged;
 
-    public delegate void OnHealthChanged(int current, int max);
-    public event OnHealthChanged HealthChanged;
-
-    public delegate void OnDeath();
-    public event OnDeath Died;
+    public delegate void DiedDelegate();
+    public event DiedDelegate Died;
 
     private void Start()
     {
         currentHealth = maxHealth;
-
-        // Attempt to get a ShieldComponent if one exists
-        shieldComponent = GetComponent<ShieldComponent>();
-
-        if (shieldComponent == null)
-        {
-            Debug.Log($"{gameObject.name} does not have a ShieldComponent. Health will take all damage directly.");
-        }
-
-        HealthChanged?.Invoke(currentHealth, maxHealth); // Notify listeners of initial health value
     }
 
+    /// <summary>
+    /// Reduces health by the specified damage amount.
+    /// </summary>
     public void TakeDamage(int damage)
     {
-        // Apply damage to the shield first, if available
-        if (shieldComponent != null)
-        {
-            damage = shieldComponent.AbsorbDamage(damage);
-        }
-
-        // Apply remaining damage to health
-        if (damage > 0)
-        {
-            currentHealth -= damage;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-            HealthChanged?.Invoke(currentHealth, maxHealth);
-
-            Debug.Log($"{gameObject.name} took {damage} damage. Current health: {currentHealth}");
-
-            if (currentHealth <= 0)
-            {
-                Die();
-            }
-        }
-    }
-
-    public void Heal(int amount)
-    {
-        currentHealth += amount;
+        currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
         HealthChanged?.Invoke(currentHealth, maxHealth);
-        Debug.Log($"{gameObject.name} healed {amount}. Current health: {currentHealth}");
+
+        Debug.Log($"{gameObject.name} took {damage} damage, current health: {currentHealth}");
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
     }
 
+    /// <summary>
+    /// Sets the maximum and current health values.
+    /// </summary>
+    public void SetHealth(int newHealth, int? newMaxHealth = null)
+    {
+        if (newMaxHealth.HasValue)
+        {
+            maxHealth = Mathf.Max(1, newMaxHealth.Value); // Ensure maxHealth is at least 1.
+        }
+
+        currentHealth = Mathf.Clamp(newHealth, 0, maxHealth);
+
+        HealthChanged?.Invoke(currentHealth, maxHealth);
+
+        Debug.Log($"{gameObject.name}'s health has been set: {currentHealth}/{maxHealth}");
+    }
+
+    /// <summary>
+    /// Triggers the death logic.
+    /// </summary>
     private void Die()
     {
         Debug.Log($"{gameObject.name} has died.");
         Died?.Invoke();
+        Destroy(gameObject);
     }
 }

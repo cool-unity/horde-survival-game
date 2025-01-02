@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0b463451-a37f-4336-b42c-f042a6cfc49c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_13.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_13.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_13_0.controller" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_13_0.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_14.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_14.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_14_0.controller" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_14_0.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_15.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_15.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_15_0.controller" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_15_0.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_16.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_16.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_16_0.controller" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_16_0.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_17.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_17.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_17_0.controller" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs/Torches/Animations/Torch_17_0.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/chest_open_on_contact/Animations/chest_01.controller" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/chest_open_on_contact/Animations/chest_01.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/chest_open_on_contact/Animations/chest_01_close.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/chest_open_on_contact/Animations/chest_01_close.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/chest_open_on_contact/Animations/chest_01_opened.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/chest_open_on_contact/Animations/chest_01_opened.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/chest_open_on_contact/Animations/chest_01_opening.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/chest_open_on_contact/Animations/chest_01_opening.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_back.controller" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_back.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_back_idle.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_back_idle.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_back_wave.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_back_wave.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_front.controller" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_front.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_front_idle.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_front_idle.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_front_wave.anim" beforeDir="false" afterPath="$PROJECT_DIR$/../Imported Assets/Gif/Super_Retro_Collection/Resources/Prefabs_with_behavior/tall_grass_react_on_contact/Animations/tallgrass_01_front_wave.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BaseEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BaseEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HealthComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShieldComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ShieldComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/TagManager.asset" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/AttackableStrategy.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2qzdT1cPmCGZlMc6S4Sy8U8QCTE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0b463451-a37f-4336-b42c-f042a6cfc49c" name="Changes" comment="" />
+      <created>1735669342650</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1735669342650</updated>
+      <workItem from="1735669344476" duration="29000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
