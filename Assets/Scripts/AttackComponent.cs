@@ -3,7 +3,7 @@ using UnityEngine;
 public class AttackComponent : MonoBehaviour
 {
     [Header("Attack Settings")]
-    [SerializeField] private float attackRange = 2f; // Range within which the enemy can attack
+    [SerializeField] private float attackRange = 2f; // Range which damage is applied
     [SerializeField] private float attackCooldown = 1f; // Time between attacks
     [SerializeField] private int attackDamage = 10; // Damage dealt by each attack
     [SerializeField] private LayerMask targetLayer; // Layer mask to identify attackable targets
