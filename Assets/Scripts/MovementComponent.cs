@@ -18,17 +18,17 @@ public class MovementComponent : MonoBehaviour
     public void MoveTowards(Vector2 targetPosition)
     {
         Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
-        myRigidbody.velocity = direction * moveSpeed;
+        myRigidbody.linearVelocity = direction * moveSpeed;
     }
 
     public void MoveInDirection(Vector2 direction)
     {
-        myRigidbody.velocity = direction.normalized * moveSpeed;
+        myRigidbody.linearVelocity = direction.normalized * moveSpeed;
     }
 
     public void StopMovement()
     {
-        myRigidbody.velocity = Vector2.zero;
+        myRigidbody.linearVelocity = Vector2.zero;
     }
 
     public void SetSpeed(float newSpeed)
@@ -80,7 +80,7 @@ public class MovementComponent : MonoBehaviour
             }
         }
 
-        myRigidbody.velocity += avoidanceForce * separationStrength;
+        myRigidbody.linearVelocity += avoidanceForce * separationStrength;
     }
 
     public void FlipSpriteBasedOnDirection(Vector2 velocity)
@@ -93,7 +93,7 @@ public class MovementComponent : MonoBehaviour
 
     public Vector2 GetVelocity()
     {
-        return myRigidbody.velocity;
+        return myRigidbody.linearVelocity;
     }
 
     private void OnDrawGizmosSelected()

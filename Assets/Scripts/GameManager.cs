@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform playerSpawnPoint;
     [SerializeField] private int startingScore = 0;
 
+    [Header("Enemy Settings")]
+    [SerializeField] private EnemySpawner enemySpawner;
+
     private bool isGameOver = false;
     private int score;
     private GameObject playerInstance;
@@ -41,8 +44,9 @@ public class GameManager : MonoBehaviour
         score = startingScore;
 
         SpawnPlayer();
-        Debug.Log("Game Started");
+        StartEnemySpawner();
 
+        Debug.Log("Game Started");
         OnGameStateChanged?.Invoke(isGameOver);
     }
 
@@ -50,6 +54,9 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         Debug.Log("Game Over");
+
+        StopEnemySpawner();
+        ClearAllEnemies();
 
         OnGameStateChanged?.Invoke(isGameOver);
         // Optionally show UI or pause the game.
@@ -96,6 +103,37 @@ public class GameManager : MonoBehaviour
                 health.Died += PlayerDied;
                 health.SetHealth(100); // Example: Initialize player health
             }
+        }
+    }
+
+    private void StartEnemySpawner()
+    {
+        if (enemySpawner != null)
+        {
+            enemySpawner.StartSpawning();
+            Debug.Log("Enemy Spawner Started");
+        }
+        else
+        {
+            Debug.LogWarning("EnemySpawner is not assigned in GameManager.");
+        }
+    }
+
+    private void StopEnemySpawner()
+    {
+        if (enemySpawner != null)
+        {
+            enemySpawner.StopSpawning();
+            Debug.Log("Enemy Spawner Stopped");
+        }
+    }
+
+    private void ClearAllEnemies()
+    {
+        if (enemySpawner != null)
+        {
+            enemySpawner.ClearEnemies();
+            Debug.Log("All enemies cleared.");
         }
     }
 
